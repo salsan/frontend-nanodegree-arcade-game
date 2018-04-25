@@ -1,32 +1,41 @@
 body {
-    text-align: center;
+  text-align: center;
 }
 
+/*"order-alphabetical": false,*/
+
 .modal-content {
-  background-color: #fefefe;
+  border-radius: 100px 100px 100px 100px;
+  -moz-border-radius: 100px 100px 100px 100px;
+  -webkit-border-radius: 100px 100px 100px 100px;
+  border: 13px ridge #000000;
+  background-color: #fff;
+  position: fixed;
+  top: 325px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 505px;
+  height: 606px;
+
+}
+
+.modal-message {
+  font-size: 300%;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  position: relative;
+  top: 303px;
+  width: 50%;
 }
 
 /* The Close Button */
 
 .close {
-  color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
 .close:hover, .close:focus {
-  color: #000;
   text-decoration: none;
   cursor: pointer;
-}
-
-button {
-  min-width: 48px;
-  min-height: 48px;
-  width: 100%;
 }
