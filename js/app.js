@@ -1,4 +1,24 @@
 
+
+// Axis-Aligned Bounding Box
+// Original Source
+// https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
+
+var Collision = function( enemy , player )
+  {
+
+    if (player.x < enemy.x + enemy.width &&
+       player.x + player.width > enemy.x &&
+       player.y < enemy.y + enemy.height &&
+       player.height + player.y > enemy.y) {
+           console.log("collision");
+           player.y = 420;
+           player.x = 200;
+
+         }
+  };
+
+
 // Enemies our player must avoid
 var Enemy = function( imgEnemy, abscissa, ordinate ) {
     // Variables applied to each of our instances go here,
@@ -6,6 +26,8 @@ var Enemy = function( imgEnemy, abscissa, ordinate ) {
     this.x = abscissa;
     this.y = ordinate;
 
+    this.width = 75;
+    this.height = 77;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -13,8 +35,8 @@ var Enemy = function( imgEnemy, abscissa, ordinate ) {
 };
 
 const enemy1 = new Enemy('images/enemy-bug.png', -50, 50);
-const enemy2 = new Enemy('images/enemy-bug.png', -70, 140);
-const enemy3 = new Enemy('images/enemy-bug.png', -15, 230);
+const enemy2 = new Enemy('images/enemy-bug.png', -300, 140);
+const enemy3 = new Enemy('images/enemy-bug.png', -200, 230);
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -27,6 +49,12 @@ Enemy.prototype.update = function(dt) {
     } else {
       this.x = -60;
     }
+
+    const checkCollisions1 = new Collision(enemy1, player);
+    const checkCollisions2 = new Collision(enemy2, player);
+    const checkCollisions3 = new Collision(enemy3, player);
+
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -41,6 +69,9 @@ var Player = function( imgPlayer ){
   this.x = 200;
   this.y = 420;
 
+  this.width = 70;
+  this.height = 90;
+
   this.sprite  = imgPlayer;
 
 };
@@ -54,6 +85,7 @@ Player.prototype.update = function(dt) {
     if ( player.y === -60){
       player.y = 420;
     }
+
 };
 
 // Draw the Player on the screen, required method for game
@@ -64,7 +96,6 @@ Player.prototype.render = function() {
 // Movement of Player
 Player.prototype.handleInput = function( direction ) {
 
-  console.log(player.y);
   switch (direction) {
     case 'up':
           if ( player.y > -60 ) player.y -= 30;
