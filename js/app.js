@@ -1,8 +1,18 @@
+// Modal window
+/* Model Variable */
+/* Get the modal */
+let modal = document.getElementById('myModal');
+/* Get the button that opens the modal */
+let btn = document.getElementById("myBtn");
+let modalWindow = document.getElementById("myModal");
+modalWindow.style.display = "none";
+
+
 // Axis-Aligned Bounding Box
 // Original Source
 // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
 
-var Collision = function(enemy, player) {
+var collision = function(enemy, player) {
 
   if (player.x < enemy.x + enemy.width &&
     player.x + player.width > enemy.x &&
@@ -50,16 +60,16 @@ Enemy.prototype.update = function(dt) {
       this.speed = 5;
     } else this.x += this.speed;
   } else {
-    this.speed = this.speed + (Math.random() * 10);
-    this.x = -90 - (5000 * Math.random());
+    this.speed = this.speed + (Math.random() * 10 + 1);
+    this.x = -90 - (5000 * Math.random() );
   }
 
-  const checkCollisions1 = new Collision(enemy1, player);
-  const checkCollisions2 = new Collision(enemy2, player);
-  const checkCollisions3 = new Collision(enemy3, player);
-  const checkCollisions4 = new Collision(enemy4, player);
-  const checkCollisions5 = new Collision(enemy5, player);
-  const checkCollisions6 = new Collision(enemy6, player);
+  const checkCollisions1 = new collision(enemy1, player);
+  const checkCollisions2 = new collision(enemy2, player);
+  const checkCollisions3 = new collision(enemy3, player);
+  const checkCollisions4 = new collision(enemy4, player);
+  const checkCollisions5 = new collision(enemy5, player);
+  const checkCollisions6 = new collision(enemy6, player);
 
 };
 
@@ -90,6 +100,9 @@ Player.prototype.update = function(dt) {
   // all computers.
   if (player.y === -60) {
     console.log("You Won");
+    console.log(modalWindow);
+
+    modalWindow.style.display = "block";
     player.y = 420;
   }
 
