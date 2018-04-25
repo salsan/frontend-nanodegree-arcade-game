@@ -90,7 +90,7 @@ Player.prototype.handleInput = function( direction ) {
 // Place the player object in a variable called player
 
 var allEnemies = [ enemy1, enemy2, enemy3];
-var player = new Player('images/char-boy.png');
+var player = new Player('images/char-cat-girl.png');
 
 
 
