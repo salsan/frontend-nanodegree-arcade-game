@@ -7,23 +7,8 @@ let btn = document.getElementById("myBtn");
 let modalWindow = document.getElementById("myModal");
 modalWindow.style.display = "none";
 
-
-// Axis-Aligned Bounding Box
-// Original Source
-// https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
-
-var collision = function(enemy, player) {
-
-  if (player.x < enemy.x + enemy.width &&
-    player.x + player.width > enemy.x &&
-    player.y < enemy.y + enemy.height &&
-    player.height + player.y > enemy.y) {
-    console.log("collision");
-    player.y = 420;
-    player.x = 200;
-  }
-};
-
+/* Level Games*/
+var levelGame = 1;
 
 // Enemies our player must avoid
 var Enemy = function(imgEnemy, abscissa, ordinate) {
@@ -42,12 +27,15 @@ var Enemy = function(imgEnemy, abscissa, ordinate) {
   this.sprite = imgEnemy;
 };
 
+
+/*
 const enemy1 = new Enemy('images/enemy-bug.png', -50, 50);
 const enemy2 = new Enemy('images/enemy-bug.png', -600, 140);
 const enemy3 = new Enemy('images/enemy-bug.png', -800, 230);
 const enemy4 = new Enemy('images/enemy-bug.png', -1200, 230);
 const enemy5 = new Enemy('images/enemy-bug.png', -2400, 50);
 const enemy6 = new Enemy('images/enemy-bug.png', -3000, 140);
+*/
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -61,16 +49,23 @@ Enemy.prototype.update = function(dt) {
     } else this.x += this.speed;
   } else {
     this.speed = this.speed + (Math.random() * 10 + 1);
-    this.x = -90 - (5000 * Math.random() );
+    this.x = -90 - (5000 * Math.random());
   }
 
-  const checkCollisions1 = new collision(enemy1, player);
-  const checkCollisions2 = new collision(enemy2, player);
-  const checkCollisions3 = new collision(enemy3, player);
-  const checkCollisions4 = new collision(enemy4, player);
-  const checkCollisions5 = new collision(enemy5, player);
-  const checkCollisions6 = new collision(enemy6, player);
+  // Check Collision from Player and Enemies
+  // Axis-Aligned Bounding Box
+  // Original Source
+  // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
 
+  allEnemies.forEach(function(enemy, index) {
+    if (player.x < allEnemies[index].x + allEnemies[index].width &&
+      player.x + player.width > allEnemies[index].x &&
+      player.y < allEnemies[index].y + allEnemies[index].height &&
+      player.height + player.y > allEnemies[index].y) {
+      console.log("collision");
+      player.y = 420;
+    }
+  });
 };
 
 // Draw the enemy on the screen, required method for game
@@ -89,7 +84,6 @@ var Player = function(imgPlayer) {
   this.height = 90;
 
   this.sprite = imgPlayer;
-
 };
 
 // Update the playuer position, required method for game
@@ -98,11 +92,12 @@ Player.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
-  if (player.y === -60) {
-    console.log("You Won");
-    console.log(modalWindow);
 
-    modalWindow.style.display = "block";
+  if (player.y === -30) {
+    console.log("You Won");
+    console.log(levelGame++);
+
+    //  modalWindow.style.display = "block";
     player.y = 420;
   }
 
@@ -140,10 +135,16 @@ Player.prototype.handleInput = function(direction) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
+var allEnemies = [];
+
+allEnemies.push(new Enemy('images/enemy-bug.png', -50, 50));
+allEnemies.push(new Enemy('images/enemy-bug.png', -600, 140));
+allEnemies.push(new Enemy('images/enemy-bug.png', -800, 230));
+allEnemies.push(new Enemy('images/enemy-bug.png', -1200, 230));
+allEnemies.push(new Enemy('images/enemy-bug.png', -2400, 50));
+allEnemies.push(new Enemy('images/enemy-bug.png', -3000, 50));
+
 var player = new Player('images/char-cat-girl.png');
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
