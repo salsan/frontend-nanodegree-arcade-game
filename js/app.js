@@ -194,7 +194,7 @@ document.addEventListener('keyup', function(e) {
   player.handleInput(allowedKeys[e.keyCode]);
 });
 
-
+/* restart button  */
 playButton.addEventListener('click', function(){
   document.location.reload(true);
 });
