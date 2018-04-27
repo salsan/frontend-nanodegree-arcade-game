@@ -122,7 +122,7 @@ var Player = function(imgPlayer) {
   this.y = 420;
 
   this.width = 70;
-  this.height = 90;
+  this.height = 60;
 
   this.sprite = imgPlayer;
 
