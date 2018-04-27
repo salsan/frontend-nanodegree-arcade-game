@@ -3,12 +3,38 @@
 /* Get the modal */
 let modal = document.getElementById('myModal');
 /* Get the button that opens the modal */
-let btn = document.getElementById("myBtn");
-let modalWindow = document.getElementById("myModal");
-modalWindow.style.display = "none";
+let btn = document.getElementById('myBtn');
+let playButton = document.querySelector("button");
+let modalWindow = document.getElementById('myModal');
+let modalMessage = document.querySelector('.modal-message');
+modalWindow.style.display = 'none';
 
-/* Level Games*/
+/* Level Game*/
 var levelGame = 1;
+var levelGameCounter = document.querySelector('.myLevel');
+
+var displayResult = document.querySelector('.container');
+
+/* Time Variables*/
+var startGame = 0;
+var initTime = 0;
+var t = 0;
+var timerBoardId;
+var timerBoard = document.querySelector('.myTime');
+
+
+/* Manage time of game */
+function initTimerBoard() {
+  timerBoard.innerText = t + 's';
+  t++;
+}
+
+/* Return a random block start enemy  */
+function randomOrdinate() {
+  let stoneBlock = [60, 143, 226];
+  let index = Math.floor(Math.random() * 3);
+  return (stoneBlock[index]);
+}
 
 // Enemies our player must avoid
 var Enemy = function(imgEnemy, abscissa, ordinate) {
@@ -17,8 +43,8 @@ var Enemy = function(imgEnemy, abscissa, ordinate) {
   this.x = abscissa;
   this.y = ordinate;
 
-  this.width = 75;
-  this.height = 77;
+  this.width = 60;
+  this.height = 60;
 
   this.speed = 1;
 
@@ -28,15 +54,6 @@ var Enemy = function(imgEnemy, abscissa, ordinate) {
 };
 
 
-/*
-const enemy1 = new Enemy('images/enemy-bug.png', -50, 50);
-const enemy2 = new Enemy('images/enemy-bug.png', -600, 140);
-const enemy3 = new Enemy('images/enemy-bug.png', -800, 230);
-const enemy4 = new Enemy('images/enemy-bug.png', -1200, 230);
-const enemy5 = new Enemy('images/enemy-bug.png', -2400, 50);
-const enemy6 = new Enemy('images/enemy-bug.png', -3000, 140);
-*/
-
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -45,27 +62,43 @@ Enemy.prototype.update = function(dt) {
   // all computers.
   if (this.x < 500) {
     if (this.speed > 10) {
-      this.speed = 5;
+      this.speed = Math.floor(Math.random() * 10 + 1);
     } else this.x += this.speed;
   } else {
-    this.speed = this.speed + (Math.random() * 10 + 1);
-    this.x = -90 - (5000 * Math.random());
+    this.speed = Math.floor(Math.random() * this.speed + 2);
+    this.x = -150 - Math.floor(5000 * Math.random());
+    this.y = randomOrdinate();
   }
 
   // Check Collision from Player and Enemies
   // Axis-Aligned Bounding Box
   // Original Source
-  // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
+  // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detections
 
   allEnemies.forEach(function(enemy, index) {
-    if (player.x < allEnemies[index].x + allEnemies[index].width &&
-      player.x + player.width > allEnemies[index].x &&
-      player.y < allEnemies[index].y + allEnemies[index].height &&
-      player.height + player.y > allEnemies[index].y) {
-      console.log("collision");
+    if (player.x < enemy.x + enemy.width &&
+      player.x + player.width > enemy.x &&
+      player.y < enemy.y + enemy.height &&
+      player.height + player.y > enemy.y) {
+      console.log('collision');
+      // reset variable and game
+      clearInterval(timerBoardId);
+      modalWindow.style.display = 'block';
+      displayResult.style.display = 'none';
+
+      // show result
+      modalMessage.innerText = 'FINISH\n Level ' + levelGame + ' \n' + 'Time : ' + t + 'seconds';
+
+
       player.y = 420;
+
     }
   });
+
+  /* Add enemy if player pass level */
+  if (allEnemies.length < levelGame) {
+    allEnemies.push(new Enemy('images/enemy-bug.png', -150, randomOrdinate()));
+  }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -77,6 +110,14 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(imgPlayer) {
+  if (startGame === 0) {
+    startGame = 1;
+    timerBoardId = setInterval(function() {
+      initTimerBoard();
+    }, 1000);
+    initTime++;
+  }
+
   this.x = 200;
   this.y = 420;
 
@@ -84,6 +125,7 @@ var Player = function(imgPlayer) {
   this.height = 90;
 
   this.sprite = imgPlayer;
+
 };
 
 // Update the playuer position, required method for game
@@ -94,10 +136,9 @@ Player.prototype.update = function(dt) {
   // all computers.
 
   if (player.y === -30) {
-    console.log("You Won");
-    console.log(levelGame++);
-
-    //  modalWindow.style.display = "block";
+    levelGame++;
+    levelGameCounter.innerText = 'Level ' + levelGame;
+    console.log('Next Level');
     player.y = 420;
   }
 
@@ -137,13 +178,7 @@ Player.prototype.handleInput = function(direction) {
 
 var allEnemies = [];
 
-allEnemies.push(new Enemy('images/enemy-bug.png', -50, 50));
-allEnemies.push(new Enemy('images/enemy-bug.png', -600, 140));
-allEnemies.push(new Enemy('images/enemy-bug.png', -800, 230));
-allEnemies.push(new Enemy('images/enemy-bug.png', -1200, 230));
-allEnemies.push(new Enemy('images/enemy-bug.png', -2400, 50));
-allEnemies.push(new Enemy('images/enemy-bug.png', -3000, 50));
-
+allEnemies.push(new Enemy('images/enemy-bug.png', -150, randomOrdinate()));
 var player = new Player('images/char-cat-girl.png');
 
 // This listens for key presses and sends the keys to your
@@ -157,4 +192,9 @@ document.addEventListener('keyup', function(e) {
   };
 
   player.handleInput(allowedKeys[e.keyCode]);
+});
+
+
+playButton.addEventListener('click', function(){
+  document.location.reload(true);
 });

@@ -16,7 +16,6 @@ body {
   transform: translate(-50%, -50%);
   width: 505px;
   height: 606px;
-
 }
 
 .modal-message {
@@ -38,4 +37,35 @@ body {
 .close:hover, .close:focus {
   text-decoration: none;
   cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 505px;
+  margin: 0 auto;
+}
+
+.Level {
+  width: 50%;
+  text-align: center;
+}
+
+.myTime {
+  width: 50%;
+  text-align: center;
+}
+
+button {
+  background: rgba(210, 255, 82, 1);
+  background: -moz-linear-gradient(left, rgba(210, 255, 82, 1) 0%, rgba(171, 241, 72, 1) 38%, rgba(145, 232, 66, 1) 63%, rgba(145, 232, 66, 1) 90%, rgba(145, 232, 66, 1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(210, 255, 82, 1)), color-stop(38%, rgba(171, 241, 72, 1)), color-stop(63%, rgba(145, 232, 66, 1)), color-stop(90%, rgba(145, 232, 66, 1)), color-stop(100%, rgba(145, 232, 66, 1)));
+  background: -webkit-linear-gradient(left, rgba(210, 255, 82, 1) 0%, rgba(171, 241, 72, 1) 38%, rgba(145, 232, 66, 1) 63%, rgba(145, 232, 66, 1) 90%, rgba(145, 232, 66, 1) 100%);
+  background: -o-linear-gradient(left, rgba(210, 255, 82, 1) 0%, rgba(171, 241, 72, 1) 38%, rgba(145, 232, 66, 1) 63%, rgba(145, 232, 66, 1) 90%, rgba(145, 232, 66, 1) 100%);
+  background: -ms-linear-gradient(left, rgba(210, 255, 82, 1) 0%, rgba(171, 241, 72, 1) 38%, rgba(145, 232, 66, 1) 63%, rgba(145, 232, 66, 1) 90%, rgba(145, 232, 66, 1) 100%);
+  background: linear-gradient(to right, rgba(210, 255, 82, 1) 0%, rgba(171, 241, 72, 1) 38%, rgba(145, 232, 66, 1) 63%, rgba(145, 232, 66, 1) 90%, rgba(145, 232, 66, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842', GradientType=1);
+  font-size: 200%;
+  width: 80%;
+  height: 80px;
 }
