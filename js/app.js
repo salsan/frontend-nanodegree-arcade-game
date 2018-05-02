@@ -61,11 +61,11 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
   if (this.x < 500) {
-    if (this.speed > 10) {
-      this.speed = Math.floor(Math.random() * 10 + 1);
+    if (this.speed > (1000 * dt)) {
+      this.speed = Math.floor(Math.random() * 1000 * dt) + 1;
     } else this.x += this.speed;
   } else {
-    this.speed = Math.floor(Math.random() * this.speed + 2);
+    this.speed = Math.floor(Math.random() * this.speed + 1000 * dt);
     this.x = -150 - Math.floor(5000 * Math.random());
     this.y = randomOrdinate();
   }
@@ -75,11 +75,11 @@ Enemy.prototype.update = function(dt) {
   // Original Source
   // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detections
 
-  allEnemies.forEach(function(enemy, index) {
-    if (player.x < enemy.x + enemy.width &&
-      player.x + player.width > enemy.x &&
-      player.y < enemy.y + enemy.height &&
-      player.height + player.y > enemy.y) {
+  allEnemies.forEach(function(collision) {
+    if (player.x < collision.x + collision.width &&
+      player.x + player.width > collision.x &&
+      player.y < collision.y + collision.height &&
+      player.height + player.y > collision.y) {
 
       // reset variable and game
       clearInterval(timerBoardId);
@@ -88,7 +88,6 @@ Enemy.prototype.update = function(dt) {
 
       // show result
       modalMessage.innerText = 'FINISH\n Level ' + levelGame + ' \n' + 'Time : ' + t + 'seconds';
-
 
       player.y = 420;
 
@@ -135,10 +134,10 @@ Player.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
 
-  if (player.y === -30) {
+  if (this.y === -30) {
     levelGame++;
     levelGameCounter.innerText = 'Level ' + levelGame;
-    player.y = 420;
+    this.y = 420;
   }
 
 };
@@ -153,16 +152,16 @@ Player.prototype.handleInput = function(direction) {
 
   switch (direction) {
     case 'up':
-      if (player.y > -60) player.y -= 30;
+      if (this.y > -60) this.y -= 30;
       break;
     case 'down':
-      if (player.y < 420) player.y += 30;
+      if (this.y < 420) this.y += 30;
       break;
     case 'left':
-      if (player.x > 0) player.x -= 25;
+      if (this.x > 0) this.x -= 25;
       break;
     case 'right':
-      if (player.x < 400) player.x += 25;
+      if (this.x < 400) this.x += 25;
       break;
 
     default:
