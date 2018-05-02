@@ -4,7 +4,7 @@
 let modal = document.getElementById('myModal');
 /* Get the button that opens the modal */
 let btn = document.getElementById('myBtn');
-let playButton = document.querySelector("button");
+let playButton = document.querySelector('button');
 let modalWindow = document.getElementById('myModal');
 let modalMessage = document.querySelector('.modal-message');
 modalWindow.style.display = 'none';
@@ -80,7 +80,7 @@ Enemy.prototype.update = function(dt) {
       player.x + player.width > enemy.x &&
       player.y < enemy.y + enemy.height &&
       player.height + player.y > enemy.y) {
-      console.log('collision');
+
       // reset variable and game
       clearInterval(timerBoardId);
       modalWindow.style.display = 'block';
@@ -138,7 +138,6 @@ Player.prototype.update = function(dt) {
   if (player.y === -30) {
     levelGame++;
     levelGameCounter.innerText = 'Level ' + levelGame;
-    console.log('Next Level');
     player.y = 420;
   }
 
@@ -195,6 +194,6 @@ document.addEventListener('keyup', function(e) {
 });
 
 /* restart button  */
-playButton.addEventListener('click', function(){
+playButton.addEventListener('click', function() {
   document.location.reload(true);
 });
