@@ -1,39 +1,22 @@
-// Modal window
-// Model Variable
-// Get the modal
-let modal = document.getElementById('myModal');
 // Get the button that opens the modal
-let btn = document.getElementById('myBtn');
 let playButton = document.querySelector('button');
-let modalWindow = document.getElementById('myModal');
-let modalMessage = document.querySelector('.modal-message');
-modalWindow.style.display = 'none';
-
-// Level Game
-var levelGame = 1;
-var levelGameCounter = document.querySelector('.myLevel');
-
-var displayResult = document.querySelector('.container');
-
-// Time Variables
-var startGame = 0;
-var initTime = 0;
-var t = 0;
-var timerBoardId;
-var timerBoard = document.querySelector('.myTime');
 
 
 // Manage time of game
 function initTimerBoard() {
-  timerBoard.innerText = t + 's';
+  // Time Variables
+  let t = document.querySelector('.myTime').innerText;
+  const timerBoard = document.querySelector('.myTime');
   t++;
+  timerBoard.innerText = t;
+
 }
 
 // Check Collision from Player and Enemies
 // Axis-Aligned Bounding Box
 // Original Source
 // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detections
-function checkCollision() {
+function checkCollisions() {
   var result = 0;
   allEnemies.forEach(function(collision) {
     if (player.x < collision.x + collision.width &&
@@ -47,6 +30,8 @@ function checkCollision() {
 }
 
 function nextLevel() {
+  let levelGame = document.querySelector('.myLevel').innerText;
+
   // Add enemy if player pass level
   if (allEnemies.length < levelGame) {
     allEnemies.push(new Enemy('images/enemy-bug.png', -150, randomOrdinate()));
@@ -55,10 +40,17 @@ function nextLevel() {
 
 //reset variable and game
 function finishGame() {
+
+  const t = document.querySelector('.myTime').innerText;
+  const levelGame = document.querySelector('.myLevel').innerText;
+  const modalWindow = document.getElementById('myModal');
+  const modalMessage = document.querySelector('.modal-message');
+  const displayResult = document.querySelector('.container');
+
   clearInterval(timerBoardId);
+
   modalWindow.style.display = 'block';
   displayResult.style.display = 'none';
-
   // show result
   modalMessage.innerText = 'FINISH\n Level ' + levelGame + ' \n' + 'Time : ' + t + 'seconds';
 
@@ -105,15 +97,11 @@ Enemy.prototype.update = function(dt) {
   } else {
     this.speed += Math.floor(this.speed * dt * Math.random() * 200);
     this.x = -150 - Math.floor(5000 * Math.random());
-    this.y = randomOrdinate();
-  }
-
-  // if true end game
-  if (checkCollision() === 1) {
-    finishGame();
-  } else {
-    // Add enemy if player pass level
-    nextLevel();
+    this.y = function() {
+      this.stoneBlock = [60, 143, 226];
+      this.index = Math.floor(Math.random() * 3);
+      return (this.stoneBlock[this.index]);
+    };
   }
 };
 
@@ -125,14 +113,8 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+
 var Player = function(imgPlayer, speed) {
-  if (startGame === 0) {
-    startGame = 1;
-    timerBoardId = setInterval(function() {
-      initTimerBoard();
-    }, 1000);
-    initTime++;
-  }
 
   this.x = 200;
   this.y = 420;
@@ -148,9 +130,13 @@ var Player = function(imgPlayer, speed) {
 
 Player.prototype.update = function() {
 
+  this.levelGame = document.querySelector('.myLevel').innerText;
+
+  this.levelGameCounter = document.querySelector('.myLevel');
+
   if (this.y === -30) {
-    levelGame++;
-    levelGameCounter.innerText = 'Level ' + levelGame;
+    this.levelGame++;
+    this.levelGameCounter.innerText = this.levelGame;
     this.y = 420;
   }
 
