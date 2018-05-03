@@ -104,7 +104,6 @@ Enemy.prototype.update = function(dt) {
     } else this.x += this.speed;
   } else {
     this.speed += Math.floor(this.speed * dt * Math.random() * 200);
-    console.log(this.speed);
     this.x = -150 - Math.floor(5000 * Math.random());
     this.y = randomOrdinate();
   }
