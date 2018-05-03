@@ -99,11 +99,12 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
   if (this.x < 500) {
-    if (this.speed > (1000)) {
-      this.speed = Math.floor(Math.random() * 1000 * dt) + 1;
+    if (this.speed > 10) {
+      this.speed = Math.floor(Math.random() * 500 * dt) + 1;
     } else this.x += this.speed;
   } else {
-    this.speed += Math.floor(this.speed * dt * Math.random(1000));
+    this.speed += Math.floor(this.speed * dt * Math.random() * 200);
+    console.log(this.speed);
     this.x = -150 - Math.floor(5000 * Math.random());
     this.y = randomOrdinate();
   }
@@ -191,7 +192,7 @@ Player.prototype.handleInput = function(direction) {
 var allEnemies = [];
 
 allEnemies.push(new Enemy('images/enemy-bug.png', -150, randomOrdinate()));
-var player = new Player('images/char-cat-girl.png', 1 );
+var player = new Player('images/char-cat-girl.png', 1);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
