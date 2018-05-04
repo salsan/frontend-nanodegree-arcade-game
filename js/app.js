@@ -17,7 +17,7 @@ function initTimerBoard() {
 // Original Source
 // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detections
 function checkCollisions() {
-  var result = 0;
+  let result = 0;
   allEnemies.forEach(function(collision) {
     if (player.x < collision.x + collision.width &&
       player.x + player.width > collision.x &&
@@ -66,7 +66,7 @@ function randomOrdinate() {
 }
 
 // Enemies our player must avoid
-var Enemy = function(imgEnemy, abscissa, ordinate) {
+const Enemy = function(imgEnemy, abscissa, ordinate) {
 
   // Variables applied to each of our instances go here,
   // we've provided one for you to get started
@@ -115,7 +115,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-var Player = function(imgPlayer, speed) {
+const Player = function(imgPlayer, speed) {
 
   this.x = 200;
   this.y = 420;
@@ -175,15 +175,15 @@ Player.prototype.handleInput = function(direction) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [];
+const allEnemies = [];
 
 allEnemies.push(new Enemy('images/enemy-bug.png', -150, randomOrdinate()));
-var player = new Player('images/char-cat-girl.png', 1);
+const player = new Player('images/char-cat-girl.png', 1);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-  var allowedKeys = {
+  const allowedKeys = {
     37: 'left',
     38: 'up',
     39: 'right',
