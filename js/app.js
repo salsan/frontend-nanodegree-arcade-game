@@ -45,14 +45,28 @@ function finishGame() {
   const restartGame = document.querySelector('button');
 
 
+
+
   clearInterval(timerBoardId);
 
   modalWindow.style.display = 'block';
   displayResult.style.display = 'none';
   // restart game when press enter button
   restartGame.focus();
+
+  document.addEventListener('keydown', function() {
+    const keyName = event.key;
+
+    if (keyName === 'Enter') {
+      document.location.reload(true);
+    }
+  });
+
   // show result
-  modalMessage.innerText = 'FINISH\n Level ' + levelGame + ' \n' + 'Time : ' + t + 'seconds';
+  modalMessage.innerText = `FINISH
+                            Level ${levelGame}
+                            Time :
+                            ${t} seconds`;
 
   player.y = 420;
 
