@@ -6,7 +6,7 @@ In this game you have a Player and Enemies (Bugs). The goal of the player is to 
 
 [![demo](./images/ArcadeGame.gif)](https://github.com/salsan/frontend-nanodegree-arcade-game)
 
-> [Check it live](https://htmlpreview.github.io/?https://github.com/salsan/frontend-nanodegree-arcade-game/blob/master/index.html).
+> [Check it live](https://salsan.github.io/frontend-nanodegree-arcade-game/).
 
 ## Usage
 
