@@ -1,7 +1,3 @@
-// Get the button that opens the modal
-let playButton = document.querySelector('button');
-
-
 // Manage time of game
 function initTimerBoard() {
   // Time Variables
@@ -46,11 +42,15 @@ function finishGame() {
   const modalWindow = document.getElementById('myModal');
   const modalMessage = document.querySelector('.modal-message');
   const displayResult = document.querySelector('.container');
+  const restartGame = document.querySelector('button');
+
 
   clearInterval(timerBoardId);
 
   modalWindow.style.display = 'block';
   displayResult.style.display = 'none';
+  // restart game when press enter button
+  restartGame.focus();
   // show result
   modalMessage.innerText = 'FINISH\n Level ' + levelGame + ' \n' + 'Time : ' + t + 'seconds';
 
@@ -192,6 +192,10 @@ document.addEventListener('keyup', function(e) {
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+// Get the button that opens the modal
+const playButton = document.querySelector('button');
 
 // restart button
 playButton.addEventListener('click', function() {
