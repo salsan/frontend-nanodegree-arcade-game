@@ -92,16 +92,17 @@ Enemy.prototype.update = function(dt) {
   // all computers.
   if (this.x < 500) {
     if (this.speed > 10) {
-      this.speed = Math.floor(Math.random() * 500 * dt) + 1;
+      this.speed = Math.floor(Math.random() * 100 * dt) + 1;
     } else this.x += this.speed;
   } else {
-    this.speed += Math.floor(this.speed * dt * Math.random() * 200);
+    this.speed += Math.floor(dt * 100);
     this.x = -150 - Math.floor(5000 * Math.random());
-    this.y = function() {
-      this.stoneBlock = [60, 143, 226];
-      this.index = Math.floor(Math.random() * 3);
-      return (this.stoneBlock[this.index]);
-    };
+
+    // Random Block Stone Start
+    this.stoneBlock = [60, 143, 226];
+    this.index = Math.floor(Math.random() * 3);
+    this.y = this.stoneBlock[this.index];
+
   }
 };
 
